@@ -1,0 +1,120 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnohnnme3hi0f"]
+
+[ext_resource type="Script" path="res://5bones_ragdoll_test_main.gd" id="1_o6dl0"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3l601"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oq4tf"]
+size = Vector3(8, 0.128, 8)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_thle3"]
+load_path = "res://.godot/imported/lebombo_1k.hdr-4df87ac8e53f9817a1018992ff7a4ece.bptc.ctex"
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_oy2b3"]
+panorama = SubResource("CompressedTexture2D_thle3")
+
+[sub_resource type="Sky" id="Sky_71fim"]
+sky_material = SubResource("PanoramaSkyMaterial_oy2b3")
+
+[sub_resource type="Environment" id="Environment_w7ssj"]
+background_mode = 1
+background_color = Color(0.513726, 0.513726, 0.513726, 1)
+background_energy_multiplier = 0.8
+sky = SubResource("Sky_71fim")
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o6dl0")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Node3D"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+mesh = SubResource("PlaneMesh_3l601")
+
+[node name="Camera3D" type="Camera3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.947568, 1.80196)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0664945, 0)
+shape = SubResource("BoxShape3D_oq4tf")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_w7ssj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.936109, 0.123287, -0.329395, 0, 0.93655, 0.350534, 0.351711, -0.328138, 0.876712, 0, 2.39289, 2.05438)
+shadow_enabled = true
+
+[node name="VC1" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VC1"]
+layout_mode = 2
+
+[node name="StandButton" type="Button" parent="VC1/HBoxContainer2"]
+layout_mode = 2
+disabled = true
+text = "Stop Animation and Stand"
+
+[node name="Label" type="Label" parent="VC1/HBoxContainer2"]
+layout_mode = 2
+text = "Godot 4.2.1 & Godot Jolt 0.12.0"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VC1"]
+layout_mode = 2
+
+[node name="Pin" type="Button" parent="VC1/HBoxContainer"]
+layout_mode = 2
+text = "Start Pin(XYZ Free) Joint Ragdoll"
+
+[node name="Hingi" type="Button" parent="VC1/HBoxContainer"]
+layout_mode = 2
+text = "Start Hingi Joint Ragdoll"
+
+[node name="Dof6" type="Button" parent="VC1/HBoxContainer"]
+layout_mode = 2
+text = "Start Dof6 Lock Joint Ragdoll"
+
+[node name="Dof6x" type="CheckBox" parent="VC1/HBoxContainer"]
+layout_mode = 2
+text = "X"
+
+[node name="Dof6y" type="CheckBox" parent="VC1/HBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "y"
+
+[node name="Dof6z" type="CheckBox" parent="VC1/HBoxContainer"]
+layout_mode = 2
+text = "z"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VC1"]
+layout_mode = 2
+
+[node name="VisibleButton" type="CheckButton" parent="VC1/HBoxContainer3"]
+layout_mode = 2
+button_pressed = true
+text = "Visible Character"
+
+[connection signal="pressed" from="VC1/HBoxContainer2/StandButton" to="." method="_on_stand_pressed"]
+[connection signal="pressed" from="VC1/HBoxContainer/Pin" to="." method="_on_pin_pressed"]
+[connection signal="pressed" from="VC1/HBoxContainer/Hingi" to="." method="_on_hingi_pressed"]
+[connection signal="pressed" from="VC1/HBoxContainer/Dof6" to="." method="_on_dof_6_pressed"]
+[connection signal="toggled" from="VC1/HBoxContainer3/VisibleButton" to="." method="_on_visible_button_toggled"]

@@ -1,0 +1,9 @@
+I think CC0
+
+see
+https://github.com/catprisbrey/Godot4-MixamoLibraries
+
+Features
+*
+OpenBot MannyQuin CC0 model files - for making open humaniod animations (OpenBot is Mixamo animation compatible)
+
