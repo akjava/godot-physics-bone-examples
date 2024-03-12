@@ -13,7 +13,11 @@ config_version=5
 config/name="Godot-physics-bone-examples"
 run/main_scene="res://5bones_ragdoll_test_main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
+
+[display]
+
+window/size/mode=4
 
 [physics]
 
